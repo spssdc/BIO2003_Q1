@@ -40,39 +40,32 @@ namespace BIO2003_Q1
             return result;
         }
 
-        // Hmmm...  seems messy...
+        // Swaps characters in a string.
+        static string SwapCharacters(string value, int position1, int position2)
+        {
+            // Swaps characters in a string.
+            char[] array = value.ToCharArray(); // Get characters
+            char temp = array[position1]; // Get temporary copy of character
+            array[position1] = array[position2]; // Assign element
+            array[position2] = temp; // Assign element
+            return new string(array); // Return string
+        }
+
+        // Given an ISBN string s that has two positions transposed, find the potential solutions
         static void MixedString(string s)
         {
-            string[] digits = new string[10];
-            string[] checkList = new string[10];
             string checkString = "";
-            string temp = "";
-            for (int i=0; i<10; i++)
-            {
-                digits[i] = s.Substring(i, 1);
-            }
+
             for(int i=0; i<10; i++)
             {
                 for(int j=i+1; j<10; j++)
                 {
-                    for (int k = 0; k < 10; k++)
-                    {
-                        checkList[k] = digits[k];
-                    }
-                    temp = checkList[i];
-                    checkList[i] = checkList[j];
-                    checkList[j] = temp;
-                    checkString = "";
-                    for (int k = 0; k < 10; k++)
-                    {
-                        checkString = checkString + checkList[k];
-                    }
+                    checkString = SwapCharacters(s, i, j);
                     if (CheckISBN(checkString))
                     {
                         Console.WriteLine(checkString);
                     }
                 }
-
             }
         }
         static void Main()
